@@ -1,3 +1,6 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/Babawale/Project_3_CICD_Auto_Deploy_Powers/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Babawale/Project_3_CICD_Auto_Deploy_Powers/tree/master)
+
+
 We are archiving this repository because we do not want learners to push personal development to the current repository. If you have any issues or suggestions to make, feel free to:
 - Utilize the https://knowledge.udacity.com/ forum to seek help on content-specific issues.
 - [Submit a support ticket](https://udacity.zendesk.com/hc/en-us/requests/new) along with the link to your forked repository. 
