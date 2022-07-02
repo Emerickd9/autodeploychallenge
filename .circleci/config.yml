@@ -56,10 +56,10 @@ jobs:
     steps:
       - checkout
       - run:
-        name: clean-npm
-        command: |
-           rm -rf node_modules 
-           rm ./package-lock.json
+          name: clean-npm
+          command: |
+            rm -rf node_modules 
+            rm ./package-lock.json
       - restore_cache:
           keys: [backend-build]
       - run:
