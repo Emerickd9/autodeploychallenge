@@ -56,13 +56,11 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [backend-build]
+          keys: [frontend-build]
       - run:
           name: Back-end build
           command: |
              cd backend
-             rm -rf node_modules 
-             rm ./package-lock.json
              npm install
              npm run build
       - save_cache:
