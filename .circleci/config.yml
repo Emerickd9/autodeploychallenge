@@ -55,6 +55,11 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - run:
+        name: clean-npm
+        command: |
+           rm -rf node_modules 
+           rm ./package-lock.json
       - restore_cache:
           keys: [backend-build]
       - run:
