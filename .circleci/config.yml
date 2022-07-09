@@ -254,7 +254,8 @@ jobs:
             apk add --update --no-cache gzip
             apk add --update --no-cache nodejs
             apk add --update --no-cache npm
-            apk add --update --no-cache aws-cli 
+            apk add --update --no-cache aws-cli
+            apk add --update --no-cache curl 
       - run:
           name: Get backend url
           command: |
