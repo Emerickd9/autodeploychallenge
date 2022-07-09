@@ -12,6 +12,7 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
+            echo "Destroying environment: << parameters.workflow_id >> "
             aws s3 rm s3://udapeople-<<parameters.workflow_id>> --recursive
             aws cloudformation delete-stack --stack-name udapeople-backend-<<parameters.workflow_id>>
             aws cloudformation delete-stack --stack-name udapeople-frontend-<<parameters.workflow_id>>
@@ -342,6 +343,7 @@ jobs:
             --query "Reservations[*].Instances[*].[PublicIpAddress]" \
             --output text)
             export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
 
             if curl "${API_URL}/api/status" | grep "ok"
             then
