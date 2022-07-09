@@ -187,7 +187,7 @@ jobs:
   configure-infrastructure:
     docker:
       # Docker image here that supports Ansible
-      - image: python:3.7-alpine3.11
+      - image: python:3.10-alpine3.16
     steps:
       # Checkout code from git
       - checkout
@@ -201,9 +201,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apt install tar gzip -y
-            apk add --update ansible
-            pip install awscli
+            apk add --update --no-cache ansible tar gzip awscli
       - run:
           name: Configure server
           command: |
