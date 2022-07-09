@@ -335,13 +335,11 @@ jobs:
           command: |
             apk add --update --no-cache tar gzip nodejs npm curl aws-cli
       - run:
-          name: Get backend url
+          name: Get backend url and Backend smoke test.
           command: |
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
-      - run:
-          name: Backend smoke test.
-          command: |
+            
             if curl "${API_URL}/api/status" | grep "ok"
             then
               return 0
