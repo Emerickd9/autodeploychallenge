@@ -338,10 +338,7 @@ jobs:
       - run:
           name: Get backend url and Backend smoke test.
           command: |
-            export BACKEND_IP=$(aws ec2 describe-instances \
-            --filter "Name=instance-state-name,Values=running" \
-            --query "Reservations[*].Instances[*].[PublicIpAddress]" \
-            --output text)
+            
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
 
