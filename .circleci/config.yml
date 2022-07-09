@@ -28,13 +28,14 @@ commands:
           name: Revert migrations
           when: on_fail
           command: |
-            # SUCCESS=$(curl --insecure  https://kvdb.io/4VJ274WBBHEq9RdkvTFDeu/migration_${CIRCLE_WORKFLOW_ID:0:7})
-            # if (($SUCCESS == 1))
-            # then
+            SUCCESS=$(curl --insecure  https://kvdb.io/4VJ274WBBHEq9RdkvTFDeu/migration_${CIRCLE_WORKFLOW_ID:0:7})
+            if (($SUCCESS == 1))
+            then
               cd ~/project/backend
               npm install
+              npm run build
               npm run migrations:revert
-            # fi
+            fi
 
             
 jobs:
@@ -276,7 +277,7 @@ jobs:
       # Here's where you will add some code to rollback on failure
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      - revert_migrations:
+      - revert-migrations:
             workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}      
                     
   # deploy-backend:
