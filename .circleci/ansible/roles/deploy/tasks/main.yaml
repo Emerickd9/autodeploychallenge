@@ -25,17 +25,10 @@
   become: true
   command: 'npm install -g pm2'
 
-- name: "Copy zipped archive"
-  become: true
-  synchronize:
-    src: ../../artifact.tar.gz
-    dest: /home/ubuntu/artifact.tar.gz
-    recursive: true
-
 - name: "Extract artifact into EC2 Instance" 
   become: true
   unarchive:
-    src: /home/ubuntu/artifact.tar.gz
+    src: files/artifact.tar.gz
     dest: .
 
 - name: "Start the app"
