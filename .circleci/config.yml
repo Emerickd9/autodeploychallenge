@@ -335,6 +335,10 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update --no-cache tar gzip nodejs npm curl aws-cli
+
+            echo "Sleeping for 3 minutes"
+
+            sleep 180
       - run:
           name: Get backend url and Backend smoke test.
           command: |
