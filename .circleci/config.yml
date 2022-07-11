@@ -345,7 +345,7 @@ jobs:
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL=${API_URL}"
 
-            nc -vz "${API_URL}" 3030
+            nc -vz "${API_URL}"
 
             if curl -v "${API_URL}/api/status" | grep -i "ok"
             then
