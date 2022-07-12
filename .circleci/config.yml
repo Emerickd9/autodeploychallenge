@@ -275,7 +275,8 @@ jobs:
             npm install
             npm run build
             tar -czvf artifact-"${CIRCLE_WORKFLOW_ID:0:7}".tar.gz dist
-            aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive 
+            # aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive 
+            aws s3 sync dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7}
       # Here's where you will add some code to rollback on failure
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
@@ -299,8 +300,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update --no-cache ansible tar gzip nodejs npm curl 
-            pip install awscli
+            apk add --update --no-cache ansible tar gzip nodejs npm curl aws-cli
       - run:
           name: Deploy backend
           command: |
@@ -336,9 +336,9 @@ jobs:
           command: |
             apk add --update --no-cache tar gzip nodejs npm curl aws-cli
 
-            echo "Sleeping for 3 minutes"
+            # echo "Sleeping for 3 minutes"
 
-            sleep 180
+            # sleep 180
       - run:
           name: Get backend url and Backend smoke test.
           command: |
