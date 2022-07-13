@@ -35,17 +35,11 @@
     src: ~/project/artifact.tar.gz
     dest: /home/ubuntu/artifact.tar.gz
 
-- name: "Extract artifact"
+
+- name: "Start app"
   become: true
   shell: |
     cd /home/ubuntu
     tar xzvf artifact.tar.gz
-
-- name: "Build and Start app"
-  become: true
-  shell: |
-    cd /home/ubuntu
-    npm i
-    npm run build
     pm2 stop all
     pm2 start npm -- start
