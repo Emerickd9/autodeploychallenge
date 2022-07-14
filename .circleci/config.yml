@@ -170,7 +170,7 @@ jobs:
               --tags project=udapeople \
               --stack-name "udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}" \
               --parameter-overrides ID="${CIRCLE_WORKFLOW_ID:0:7}"
-      # Fetch abd append the public IP address of the EC2 instance to inventory.txt file
+      # Fetch add append the public IP address of the EC2 instance to inventory.txt file
       - run:
           name: Add back-end ip to ansible inventory
           command: |
@@ -371,15 +371,15 @@ jobs:
             if curl -s ${URL} | grep "Welcome"
             then
               # Change this to 0 after the job fails
-              return 0
+              return 1
             else
               return 1
             fi
       
-      # - destroy-environment:
-      #     workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      # - revert-migrations:
-      #       workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}  
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+      - revert-migrations:
+            workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}  
 
   # cloudfront-update:
   #   docker:
