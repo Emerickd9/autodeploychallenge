@@ -364,9 +364,10 @@ jobs:
             --query "Reservations[*].Instances[*].[PublicIpAddress]" \
             --output text)
             echo ${BACKEND_IP}
-            export BACKEND=(${BACKEND_IP} | tail -n 1)
-            echo ${BACKEND}
             
+            export BACKEND=$(echo $BACKEND_IP | grep -o '[^ ]*$')
+            
+            echo $BACKEND
             export API_URL="http://${BACKEND}:3030"
             echo "API_URL=${API_URL}"
 
