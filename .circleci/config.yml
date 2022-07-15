@@ -174,7 +174,6 @@ jobs:
       - run:
           name: Add back-end ip to ansible inventory
           command: |
-            echo [web] > ~/project/.circleci/ansible/inventory.txt
             aws ec2 describe-instances \
             --filter "Name=instance-state-name,Values=running" \
             --query "Reservations[*].Instances[*].[PublicIpAddress]" \
@@ -310,6 +309,20 @@ jobs:
           command: |
             pwd
             cd backend
+
+            touch .env
+            echo ENVIRONMENT=production > ".env"
+            echo TYPEORM_CONNECTION=postgres >> ".env"
+            echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts >> ".env"
+            echo TYPEORM_MIGRATIONS=./src/migrations/*.ts >> ".env"
+            echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> ".env"
+            echo NODE_ENV=production >> ".env"
+            echo TYPEORM_HOST=$TYPEORM_HOST >> ".env"
+            echo TYPEORM_PORT=$TYPEORM_PORT >> ".env"
+            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> ".env"
+            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> ".env"
+            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> ".env"
+            
             pwd
             ls -al
             npm install
@@ -350,7 +363,11 @@ jobs:
             --filter "Name=instance-state-name,Values=running" \
             --query "Reservations[*].Instances[*].[PublicIpAddress]" \
             --output text)
-            export API_URL="http://${BACKEND_IP}:3030"
+            echo ${BACKEND_IP}
+            export BACKEND=(${BACKEND_IP} | tail -n 1)
+            echo ${BACKEND}
+            
+            export API_URL="http://${BACKEND}:3030"
             echo "API_URL=${API_URL}"
 
             echo "Sleeping for 1 minute"
@@ -445,9 +462,9 @@ jobs:
             then
               echo "Deleting old stack"
               echo "s3://udapeople-${OldWorkflowID}"
-              aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
-              aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}"
-              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}"
+              aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive || true
+              aws cloudformation delete-stack --stack-name "udapeople-backend-${OldWorkflowID}" || true
+              aws cloudformation delete-stack --stack-name "udapeople-frontend-${OldWorkflowID}" || true
             else
               echo "Stack is the latest"
             fi
